@@ -1,0 +1,128 @@
+version: '3.9'
+
+services:
+  user-service:
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    container_name: user-service
+    ports:
+      - "8081:8081"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      MONGODB_URI_USER: ${MONGODB_URI_USER}
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-this-in-production-environment-at-least-32-characters-long}
+      JWT_EXPIRATION: 86400000
+    networks:
+      - vehicle-rental-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  vehicle-service:
+    build:
+      context: .
+      dockerfile: vehicle-service/Dockerfile
+    container_name: vehicle-service
+    ports:
+      - "8082:8082"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      MONGODB_URI_VEHICLE: ${MONGODB_URI_VEHICLE}
+    networks:
+      - vehicle-rental-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  booking-service:
+    build:
+      context: .
+      dockerfile: booking-service/Dockerfile
+    container_name: booking-service
+    ports:
+      - "8083:8083"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      MONGODB_URI_BOOKING: ${MONGODB_URI_BOOKING}
+      USER_SERVICE_URL: http://user-service:8081
+      VEHICLE_SERVICE_URL: http://vehicle-service:8082
+      NOTIFICATION_SERVICE_URL: http://notification-service:8084
+    depends_on:
+      - user-service
+      - vehicle-service
+    networks:
+      - vehicle-rental-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8083/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  notification-service:
+    build:
+      context: .
+      dockerfile: notification-service/Dockerfile
+    container_name: notification-service
+    ports:
+      - "8084:8084"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      MONGODB_URI_NOTIFICATION: ${MONGODB_URI_NOTIFICATION}
+    networks:
+      - vehicle-rental-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: api-gateway/Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-this-in-production-environment-at-least-32-characters-long}
+      USER_SERVICE_URL: http://user-service:8081
+      VEHICLE_SERVICE_URL: http://vehicle-service:8082
+      BOOKING_SERVICE_URL: http://booking-service:8083
+      NOTIFICATION_SERVICE_URL: http://notification-service:8084
+    depends_on:
+      - user-service
+      - vehicle-service
+      - booking-service
+      - notification-service
+    networks:
+      - vehicle-rental-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  vehicle-rental-network:
+    driver: bridge
