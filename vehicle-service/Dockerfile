@@ -2,7 +2,7 @@ FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
-COPY vehicle-service/target/vehicle-service-1.0.0.jar app.jar
+COPY target/vehicle-service-1.0.0.jar app.jar
 
 EXPOSE 8182
 
