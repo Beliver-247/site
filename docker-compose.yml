@@ -2,9 +2,7 @@ version: '3.9'
 
 services:
   user-service:
-    build:
-      context: .
-      dockerfile: user-service/Dockerfile
+    image: hiranx/user-service:latest
     container_name: user-service
     ports:
       - "8181:8181"
@@ -25,9 +23,7 @@ services:
       start_period: 40s
 
   vehicle-service:
-    build:
-      context: .
-      dockerfile: vehicle-service/Dockerfile
+    image: hiranx/vehicle-service:latest
     container_name: vehicle-service
     ports:
       - "8182:8182"
@@ -46,9 +42,7 @@ services:
       start_period: 40s
 
   booking-service:
-    build:
-      context: .
-      dockerfile: booking-service/Dockerfile
+    image: hiranx/booking-service:latest
     container_name: booking-service
     ports:
       - "8183:8183"
@@ -73,9 +67,7 @@ services:
       start_period: 40s
 
   notification-service:
-    build:
-      context: .
-      dockerfile: notification-service/Dockerfile
+    image: hiranx/notification-service:latest
     container_name: notification-service
     ports:
       - "8184:8184"
@@ -94,9 +86,7 @@ services:
       start_period: 40s
 
   api-gateway:
-    build:
-      context: .
-      dockerfile: api-gateway/Dockerfile
+    image: hiranx/api-gateway:latest
     container_name: api-gateway
     ports:
       - "8180:8180"
