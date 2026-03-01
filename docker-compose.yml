@@ -113,8 +113,8 @@ services:
       retries: 3
       start_period: 40s
 
-  frontend:
-    image: hiranx/vehicle-frontend:latest
+  vehicle-rent-frontend:
+    image: hiranx/vehicle-rent-frontend:latest
     container_name: frontend
     ports:
       - "80:80"
