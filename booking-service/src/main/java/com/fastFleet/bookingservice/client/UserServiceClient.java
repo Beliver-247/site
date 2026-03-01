@@ -13,7 +13,7 @@ public class UserServiceClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${user-service.url:http://localhost:8081}")
+    @Value("${user-service.url:http://localhost:8181}")
     private String userServiceUrl;
 
     public UserDTO getUserById(String userId) {

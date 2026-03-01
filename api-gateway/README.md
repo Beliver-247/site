@@ -8,10 +8,10 @@ The gateway routes requests to the appropriate microservices:
 
 | Path | Service | Port |
 |------|---------|------|
-| `/api/users/**` | User Service | 8081 |
-| `/api/vehicles/**` | Vehicle Service | 8082 |
-| `/api/bookings/**` | Booking Service | 8083 |
-| `/api/notifications/**` | Notification Service | 8084 |
+| `/api/users/**` | User Service | 8181 |
+| `/api/vehicles/**` | Vehicle Service | 8182 |
+| `/api/bookings/**` | Booking Service | 8183 |
+| `/api/notifications/**` | Notification Service | 8184 |
 
 ## Authentication
 
@@ -44,7 +44,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```bash
 docker build -t api-gateway .
 docker run -e JWT_SECRET=your-secret-key \
-           -p 8080:8080 api-gateway
+           -p 8180:8180 api-gateway
 ```
 
 ### Locally
@@ -63,16 +63,16 @@ mvn spring-boot:run
 Client Request
      │
      ▼
-  Gateway (8080)
+  Gateway (8180)
   - Validate JWT
   - Extract userId
   - Add X-User-Id header
      │
      ├─► Router
-     │   ├─► /api/users/** → User Service (8081)
-     │   ├─► /api/vehicles/** → Vehicle Service (8082)
-     │   ├─► /api/bookings/** → Booking Service (8083)
-     │   └─► /api/notifications/** → Notification Service (8084)
+     │   ├─► /api/users/** → User Service (8181)
+     │   ├─► /api/vehicles/** → Vehicle Service (8182)
+     │   ├─► /api/bookings/** → Booking Service (8183)
+     │   └─► /api/notifications/** → Notification Service (8184)
      │
      ▼
   Service Response
@@ -87,7 +87,7 @@ Client Request
 ## Health Endpoint
 
 ```bash
-curl http://localhost:8080/actuator/health
+curl http://localhost:8180/actuator/health
 
 Response:
 {

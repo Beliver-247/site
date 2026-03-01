@@ -48,7 +48,7 @@ docker-compose down -v
 
 ```bash
 # Health check all services
-for port in 8080 8081 8082 8083 8084; do
+for port in 8180 8181 8182 8183 8184; do
   echo "Service on port $port:"
   curl -s http://localhost:$port/actuator/health | jq '.status'
 done
@@ -93,7 +93,7 @@ docker-compose -f docker-compose.yml up -d
 docker-compose logs -f
 
 # Check health
-curl http://localhost:8080/actuator/health
+curl http://localhost:8180/actuator/health
 ```
 
 ### 3. Monitor Services
@@ -216,7 +216,7 @@ spec:
         image: yourusername/user-service:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8081
+        - containerPort: 8181
         env:
         - name: MONGODB_URI
           valueFrom:
@@ -231,13 +231,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health
-            port: 8081
+            port: 8181
           initialDelaySeconds: 40
           periodSeconds: 30
         readinessProbe:
           httpGet:
             path: /actuator/health
-            port: 8081
+            port: 8181
           initialDelaySeconds: 20
           periodSeconds: 10
         resources:
@@ -256,7 +256,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 8081
+  - port: 8181
   selector:
     app: user-service
 ```
@@ -287,7 +287,7 @@ kubectl get pods -n vehicle-rental
 kubectl logs -f deployment/user-service -n vehicle-rental
 
 # Port forward for testing
-kubectl port-forward svc/api-gateway 8080:8080 -n vehicle-rental
+kubectl port-forward svc/api-gateway 8180:8180 -n vehicle-rental
 ```
 
 ## CI/CD Pipeline Setup
@@ -440,7 +440,7 @@ global:
 scrape_configs:
   - job_name: 'user-service'
     static_configs:
-      - targets: ['localhost:8081']
+      - targets: ['localhost:8181']
     metrics_path: '/actuator/prometheus'
 ```
 

@@ -65,7 +65,7 @@ Response: 200 OK
 docker build -t user-service .
 docker run -e MONGODB_URI=mongodb://localhost:27017/user-db \
            -e JWT_SECRET=your-secret-key \
-           -p 8081:8081 user-service
+           -p 8181:8181 user-service
 ```
 
 ### Locally

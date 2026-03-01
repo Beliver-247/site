@@ -13,7 +13,7 @@ public class NotificationServiceClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${notification-service.url:http://localhost:8084}")
+    @Value("${notification-service.url:http://localhost:8184}")
     private String notificationServiceUrl;
 
     public void createNotification(NotificationDTO notification) {

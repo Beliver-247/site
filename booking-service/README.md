@@ -68,9 +68,9 @@ Response: 200 OK
 ## Inter-Service Communication
 
 This service communicates with:
-- **User Service** (8081): Validates user exists
-- **Vehicle Service** (8082): Gets vehicle details and pricing
-- **Notification Service** (8084): Creates booking notifications
+- **User Service** (8181): Validates user exists
+- **Vehicle Service** (8182): Gets vehicle details and pricing
+- **Notification Service** (8184): Creates booking notifications
 
 ## Running
 
@@ -78,17 +78,17 @@ This service communicates with:
 ```bash
 docker build -t booking-service .
 docker run -e MONGODB_URI=mongodb://localhost:27017/booking-db \
-           -e USER_SERVICE_URL=http://user-service:8081 \
-           -e VEHICLE_SERVICE_URL=http://vehicle-service:8082 \
-           -e NOTIFICATION_SERVICE_URL=http://notification-service:8084 \
-           -p 8083:8083 booking-service
+           -e USER_SERVICE_URL=http://user-service:8181 \
+           -e VEHICLE_SERVICE_URL=http://vehicle-service:8182 \
+           -e NOTIFICATION_SERVICE_URL=http://notification-service:8184 \
+           -p 8183:8183 booking-service
 ```
 
 ### Locally
 ```bash
-export USER_SERVICE_URL=http://localhost:8081
-export VEHICLE_SERVICE_URL=http://localhost:8082
-export NOTIFICATION_SERVICE_URL=http://localhost:8084
+export USER_SERVICE_URL=http://localhost:8181
+export VEHICLE_SERVICE_URL=http://localhost:8182
+export NOTIFICATION_SERVICE_URL=http://localhost:8184
 mvn spring-boot:run
 ```
 

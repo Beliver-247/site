@@ -140,21 +140,21 @@ vehicle-rental-system/
 
 ## 🎯 Key Features
 
-### 1. **User Service** (Port 8081)
+### 1. **User Service** (Port 8181)
 - User registration with email uniqueness validation
 - User login with JWT token generation
 - BCrypt password hashing
 - User profile retrieval
 - Custom exception handling
 
-### 2. **Vehicle Service** (Port 8082)
+### 2. **Vehicle Service** (Port 8182)
 - Vehicle CRUD operations
 - Availability management
 - Vehicle listing and filtering
 - Price management per day
 - Full update capability
 
-### 3. **Booking Service** (Port 8083)
+### 3. **Booking Service** (Port 8183)
 - Booking creation with validation
 - Automatic pricing calculation
 - Booking cancellation
@@ -162,14 +162,14 @@ vehicle-rental-system/
 - Automatic notification trigger
 - User and vehicle verification
 
-### 4. **Notification Service** (Port 8084)
+### 4. **Notification Service** (Port 8184)
 - Notification storage and retrieval
 - Paginated notification listing
 - Mark notifications as read
 - Booking lifecycle notifications
 - Type-based notification management
 
-### 5. **API Gateway** (Port 8080)
+### 5. **API Gateway** (Port 8180)
 - Request routing to microservices
 - JWT token validation and extraction
 - X-User-Id header forwarding
@@ -328,10 +328,10 @@ docker-compose up -d
 
 ### View Swagger
 ```
-http://localhost:8081/swagger-ui.html  (User Service)
-http://localhost:8082/swagger-ui.html  (Vehicle Service)
-http://localhost:8083/swagger-ui.html  (Booking Service)
-http://localhost:8084/swagger-ui.html  (Notification Service)
+http://localhost:8181/swagger-ui.html  (User Service)
+http://localhost:8182/swagger-ui.html  (Vehicle Service)
+http://localhost:8183/swagger-ui.html  (Booking Service)
+http://localhost:8184/swagger-ui.html  (Notification Service)
 ```
 
 ## 🚢 CI/CD Pipeline
@@ -419,11 +419,11 @@ GET /actuator/prometheus      - Prometheus metrics
 
 4. **Verify Deployment**
    ```bash
-   curl http://localhost:8080/actuator/health
+   curl http://localhost:8180/actuator/health
    ```
 
 5. **Access Swagger**
-   - API Gateway: http://localhost:8080/api-docs
+   - API Gateway: http://localhost:8180/api-docs
    - Services: http://localhost:PORT/swagger-ui.html
 
 ## 🎓 Learning Resources

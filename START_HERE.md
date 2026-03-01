@@ -32,7 +32,7 @@ docker-compose up -d
 docker-compose ps
 
 # 4. Check health
-curl http://localhost:8080/actuator/health
+curl http://localhost:8180/actuator/health
 
 # 5. View logs
 docker-compose logs -f
@@ -125,17 +125,17 @@ After starting with `docker-compose up -d`:
 
 | Service | URL | Swagger |
 |---------|-----|---------|
-| API Gateway | http://localhost:8080 | http://localhost:8080/api-docs |
-| User Service | http://localhost:8081 | http://localhost:8081/swagger-ui.html |
-| Vehicle Service | http://localhost:8082 | http://localhost:8082/swagger-ui.html |
-| Booking Service | http://localhost:8083 | http://localhost:8083/swagger-ui.html |
-| Notification Service | http://localhost:8084 | http://localhost:8084/swagger-ui.html |
+| API Gateway | http://localhost:8180 | http://localhost:8180/api-docs |
+| User Service | http://localhost:8181 | http://localhost:8181/swagger-ui.html |
+| Vehicle Service | http://localhost:8182 | http://localhost:8182/swagger-ui.html |
+| Booking Service | http://localhost:8183 | http://localhost:8183/swagger-ui.html |
+| Notification Service | http://localhost:8184 | http://localhost:8184/swagger-ui.html |
 
 ## 🔐 Test Authentication
 
 ```bash
 # 1. Register a user
-curl -X POST http://localhost:8080/api/users/register \
+curl -X POST http://localhost:8180/api/users/register \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John Doe",
@@ -144,7 +144,7 @@ curl -X POST http://localhost:8080/api/users/register \
   }'
 
 # 2. Login and get token
-curl -X POST http://localhost:8080/api/users/login \
+curl -X POST http://localhost:8180/api/users/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "john@example.com",
@@ -155,7 +155,7 @@ curl -X POST http://localhost:8080/api/users/login \
 TOKEN="eyJhbGciOiJIUzUxMiJ9..."
 
 # 3. Test authenticated endpoint
-curl http://localhost:8080/api/bookings/user/{userId} \
+curl http://localhost:8180/api/bookings/user/{userId} \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -213,8 +213,8 @@ vehicle-rental-system/
 ### Services won't start
 ```bash
 # Check if ports are in use
-lsof -i :8080
-lsof -i :8081
+lsof -i :8180
+lsof -i :8181
 
 # Check Docker logs
 docker-compose logs -f user-service
@@ -239,7 +239,7 @@ mongosh "mongodb://localhost:27017/user-db"
 ### JWT token expired
 ```bash
 # Login again to get new token
-curl -X POST http://localhost:8080/api/users/login \
+curl -X POST http://localhost:8180/api/users/login \
   -H "Content-Type: application/json" \
   -d '{...}'
 ```

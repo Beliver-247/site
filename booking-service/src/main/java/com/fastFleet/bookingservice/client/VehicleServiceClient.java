@@ -13,7 +13,7 @@ public class VehicleServiceClient {
 
     private final RestTemplate restTemplate;
 
-    @Value("${vehicle-service.url:http://localhost:8082}")
+    @Value("${vehicle-service.url:http://localhost:8182}")
     private String vehicleServiceUrl;
 
     public VehicleDTO getVehicleById(String vehicleId) {

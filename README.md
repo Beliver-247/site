@@ -12,7 +12,7 @@ A production-ready, cloud-native microservice-based vehicle rental platform buil
                                ▼
                     ┌──────────────────────┐
                     │    API Gateway       │
-                    │   (Port 8080)        │
+                    │   (Port 8180)        │
                     │  JWT Validation      │
                     └──────────┬───────────┘
                                │
@@ -21,7 +21,7 @@ A production-ready, cloud-native microservice-based vehicle rental platform buil
    ┌─────────┐  ┌──────────┐ ┌──────┐ ┌──────────┐ ┌────────────┐
    │  User   │  │ Vehicle  │ │Book. │ │Notif.   │ │ Databases  │
    │Service  │  │ Service  │ │Service│ │ Service │ │  (MongoDB) │
-   │(8081)   │  │  (8082)  │ │(8083)│ │ (8084)  │ │            │
+   │(8181)   │  │  (8182)  │ │(8183)│ │ (8184)  │ │            │
    └─────────┘  └──────────┘ └──────┘ └──────────┘ └────────────┘
 ```
 
@@ -41,27 +41,27 @@ A production-ready, cloud-native microservice-based vehicle rental platform buil
 
 ## Services Overview
 
-### 1. API Gateway (Port 8080)
+### 1. API Gateway (Port 8180)
 - Routing to all microservices
 - JWT validation and authentication
 - X-User-Id header forwarding
 - Rate limiting ready
 - Health checks
 
-### 2. User Service (Port 8081)
+### 2. User Service (Port 8181)
 - User registration and authentication
 - JWT token generation
 - Password hashing with BCrypt
 - User profile management
 - Database: `user-db`
 
-### 3. Vehicle Service (Port 8082)
+### 3. Vehicle Service (Port 8182)
 - Vehicle CRUD operations
 - Availability management
 - Vehicle listing and filtering
 - Database: `vehicle-db`
 
-### 4. Booking Service (Port 8083)
+### 4. Booking Service (Port 8183)
 - Booking creation and cancellation
 - Inter-service orchestration
   - User Service validation
@@ -69,7 +69,7 @@ A production-ready, cloud-native microservice-based vehicle rental platform buil
   - Notification creation
 - Database: `booking-db`
 
-### 5. Notification Service (Port 8084)
+### 5. Notification Service (Port 8184)
 - Notification storage and retrieval
 - Pagination support
 - Mark notifications as read
@@ -122,11 +122,11 @@ docker-compose down
 ```
 
 All services will be available on:
-- API Gateway: http://localhost:8080
-- User Service: http://localhost:8081
-- Vehicle Service: http://localhost:8082
-- Booking Service: http://localhost:8083
-- Notification Service: http://localhost:8084
+- API Gateway: http://localhost:8180
+- User Service: http://localhost:8181
+- Vehicle Service: http://localhost:8182
+- Booking Service: http://localhost:8183
+- Notification Service: http://localhost:8184
 
 ### Local Development without Docker
 
@@ -161,10 +161,10 @@ mvn spring-boot:run
 
 ### Swagger UI Access
 
-- User Service: http://localhost:8081/swagger-ui.html
-- Vehicle Service: http://localhost:8082/swagger-ui.html
-- Booking Service: http://localhost:8083/swagger-ui.html
-- Notification Service: http://localhost:8084/swagger-ui.html
+- User Service: http://localhost:8181/swagger-ui.html
+- Vehicle Service: http://localhost:8182/swagger-ui.html
+- Booking Service: http://localhost:8183/swagger-ui.html
+- Notification Service: http://localhost:8184/swagger-ui.html
 
 ## Sample API Workflows
 
@@ -172,7 +172,7 @@ mvn spring-boot:run
 
 ```bash
 # 1. Register User
-curl -X POST http://localhost:8080/api/users/register \
+curl -X POST http://localhost:8180/api/users/register \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John Doe",
@@ -189,7 +189,7 @@ curl -X POST http://localhost:8080/api/users/register \
 }
 
 # 2. Login
-curl -X POST http://localhost:8080/api/users/login \
+curl -X POST http://localhost:8180/api/users/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "john@example.com",
@@ -210,7 +210,7 @@ curl -X POST http://localhost:8080/api/users/login \
 
 ```bash
 # 1. Create Vehicle (No auth required for vehicles endpoint)
-curl -X POST http://localhost:8080/api/vehicles \
+curl -X POST http://localhost:8180/api/vehicles \
   -H "Content-Type: application/json" \
   -d '{
     "model": "Civic",
@@ -230,17 +230,17 @@ curl -X POST http://localhost:8080/api/vehicles \
 }
 
 # 2. Get All Vehicles
-curl http://localhost:8080/api/vehicles
+curl http://localhost:8180/api/vehicles
 
 # 3. Get Vehicle by ID
-curl http://localhost:8080/api/vehicles/507f1f77bcf86cd799439012
+curl http://localhost:8180/api/vehicles/507f1f77bcf86cd799439012
 ```
 
 ### Workflow 3: Create and Manage Bookings
 
 ```bash
 # 1. Create Booking (Requires authentication)
-curl -X POST http://localhost:8080/api/bookings \
+curl -X POST http://localhost:8180/api/bookings \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..." \
   -d '{
@@ -264,11 +264,11 @@ curl -X POST http://localhost:8080/api/bookings \
 }
 
 # 2. Get Bookings by User
-curl http://localhost:8080/api/bookings/user/507f1f77bcf86cd799439011 \
+curl http://localhost:8180/api/bookings/user/507f1f77bcf86cd799439011 \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..."
 
 # 3. Cancel Booking
-curl -X PUT http://localhost:8080/api/bookings/507f1f77bcf86cd799439013/cancel \
+curl -X PUT http://localhost:8180/api/bookings/507f1f77bcf86cd799439013/cancel \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..."
 ```
 
@@ -276,7 +276,7 @@ curl -X PUT http://localhost:8080/api/bookings/507f1f77bcf86cd799439013/cancel \
 
 ```bash
 # 1. Get Notifications for User
-curl "http://localhost:8080/api/notifications/user/507f1f77bcf86cd799439011?page=0&size=10" \
+curl "http://localhost:8180/api/notifications/user/507f1f77bcf86cd799439011?page=0&size=10" \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..."
 
 # Response:
@@ -297,7 +297,7 @@ curl "http://localhost:8080/api/notifications/user/507f1f77bcf86cd799439011?page
 }
 
 # 2. Mark Notification as Read
-curl -X PUT http://localhost:8080/api/notifications/507f1f77bcf86cd799439014/read \
+curl -X PUT http://localhost:8180/api/notifications/507f1f77bcf86cd799439014/read \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..."
 ```
 
@@ -314,10 +314,10 @@ JWT_SECRET=your-very-secure-secret-key-at-least-32-characters
 JWT_EXPIRATION=86400000
 
 # Service URLs (for internal communication)
-USER_SERVICE_URL=http://user-service:8081
-VEHICLE_SERVICE_URL=http://vehicle-service:8082
-BOOKING_SERVICE_URL=http://booking-service:8083
-NOTIFICATION_SERVICE_URL=http://notification-service:8084
+USER_SERVICE_URL=http://user-service:8181
+VEHICLE_SERVICE_URL=http://vehicle-service:8182
+BOOKING_SERVICE_URL=http://booking-service:8183
+NOTIFICATION_SERVICE_URL=http://notification-service:8184
 
 # Docker Registry
 DOCKER_USERNAME=your-username
@@ -358,11 +358,11 @@ kubectl apply -f k8s/
 All services expose health endpoints:
 
 ```bash
-curl http://localhost:8081/actuator/health
-curl http://localhost:8082/actuator/health
-curl http://localhost:8083/actuator/health
-curl http://localhost:8084/actuator/health
-curl http://localhost:8080/actuator/health
+curl http://localhost:8181/actuator/health
+curl http://localhost:8182/actuator/health
+curl http://localhost:8183/actuator/health
+curl http://localhost:8184/actuator/health
+curl http://localhost:8180/actuator/health
 ```
 
 ## CI/CD Pipeline

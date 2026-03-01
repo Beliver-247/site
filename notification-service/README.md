@@ -86,7 +86,7 @@ Response: 200 OK
 ```bash
 docker build -t notification-service .
 docker run -e MONGODB_URI=mongodb://localhost:27017/notification-db \
-           -p 8084:8084 notification-service
+           -p 8184:8184 notification-service
 ```
 
 ### Locally

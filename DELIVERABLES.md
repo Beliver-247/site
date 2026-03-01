@@ -431,7 +431,7 @@ This system is **production-ready** with:
 2. **Understand Architecture**: Read ARCHITECTURE_GUIDE.md
 3. **Setup Environment**: Copy .env.example to .env
 4. **Deploy Locally**: Run `docker-compose up -d`
-5. **Test Services**: Access http://localhost:8080
+5. **Test Services**: Access http://localhost:8180
 6. **Review Code**: Explore service implementations
 7. **Deploy to Production**: Use DEPLOYMENT_GUIDE.md
 

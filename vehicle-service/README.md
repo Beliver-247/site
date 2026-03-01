@@ -90,7 +90,7 @@ Response: 200 OK
 ```bash
 docker build -t vehicle-service .
 docker run -e MONGODB_URI=mongodb://localhost:27017/vehicle-db \
-           -p 8082:8082 vehicle-service
+           -p 8182:8182 vehicle-service
 ```
 
 ### Locally

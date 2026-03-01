@@ -183,12 +183,12 @@ Booking Service Request: Create Booking
             ├─ Validate booking request
             ├─ Call UserServiceClient.getUserById()
             │   └─ REST Call to User Service
-            │       └─ GET http://user-service:8081/api/users/{id}
+            │       └─ GET http://user-service:8181/api/users/{id}
             │           └─ UserService returns UserDTO
             │
             ├─ Call VehicleServiceClient.getVehicleById()
             │   └─ REST Call to Vehicle Service
-            │       └─ GET http://vehicle-service:8082/api/vehicles/{id}
+            │       └─ GET http://vehicle-service:8182/api/vehicles/{id}
             │           └─ VehicleService returns VehicleDTO
             │
             ├─ Calculate Total Amount = VehicleDTO.pricePerDay * days
@@ -199,7 +199,7 @@ Booking Service Request: Create Booking
             │
             ├─ Call NotificationServiceClient.createNotification()
             │   └─ REST Call to Notification Service
-            │       └─ POST http://notification-service:8084/api/notifications
+            │       └─ POST http://notification-service:8184/api/notifications
             │           └─ NotificationService creates notification
             │
             └─ Map to BookingResponse and return
@@ -331,8 +331,8 @@ JWT_SECRET=your-very-secure-key-min-32-chars
 JWT_EXPIRATION=86400000
 
 # Service Discovery
-USER_SERVICE_URL=http://user-service:8081
-VEHICLE_SERVICE_URL=http://vehicle-service:8082
+USER_SERVICE_URL=http://user-service:8181
+VEHICLE_SERVICE_URL=http://vehicle-service:8182
 ```
 
 ### Property Files
@@ -340,7 +340,7 @@ VEHICLE_SERVICE_URL=http://vehicle-service:8082
 # application.properties
 spring.data.mongodb.uri=${MONGODB_URI:mongodb://localhost:27017/db}
 jwt.secret=${JWT_SECRET:fallback-dev-secret}
-user-service.url=${USER_SERVICE_URL:http://localhost:8081}
+user-service.url=${USER_SERVICE_URL:http://localhost:8181}
 ```
 
 ## Scalability Considerations

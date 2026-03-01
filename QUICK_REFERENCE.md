@@ -28,28 +28,28 @@ docker build -t user-service user-service/
 
 | Service | URL | Swagger |
 |---------|-----|---------|
-| API Gateway | http://localhost:8080 | http://localhost:8080/api-docs |
-| User Service | http://localhost:8081 | http://localhost:8081/swagger-ui.html |
-| Vehicle Service | http://localhost:8082 | http://localhost:8082/swagger-ui.html |
-| Booking Service | http://localhost:8083 | http://localhost:8083/swagger-ui.html |
-| Notification Service | http://localhost:8084 | http://localhost:8084/swagger-ui.html |
+| API Gateway | http://localhost:8180 | http://localhost:8180/api-docs |
+| User Service | http://localhost:8181 | http://localhost:8181/swagger-ui.html |
+| Vehicle Service | http://localhost:8182 | http://localhost:8182/swagger-ui.html |
+| Booking Service | http://localhost:8183 | http://localhost:8183/swagger-ui.html |
+| Notification Service | http://localhost:8184 | http://localhost:8184/swagger-ui.html |
 
 ### Health Check
 
 ```bash
 # Check all services
-curl http://localhost:8080/actuator/health
-curl http://localhost:8081/actuator/health
-curl http://localhost:8082/actuator/health
-curl http://localhost:8083/actuator/health
-curl http://localhost:8084/actuator/health
+curl http://localhost:8180/actuator/health
+curl http://localhost:8181/actuator/health
+curl http://localhost:8182/actuator/health
+curl http://localhost:8183/actuator/health
+curl http://localhost:8184/actuator/health
 ```
 
 ### Authentication
 
 ```bash
 # Register user
-curl -X POST http://localhost:8080/api/users/register \
+curl -X POST http://localhost:8180/api/users/register \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John Doe",
@@ -58,7 +58,7 @@ curl -X POST http://localhost:8080/api/users/register \
   }'
 
 # Login
-curl -X POST http://localhost:8080/api/users/login \
+curl -X POST http://localhost:8180/api/users/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "john@example.com",
@@ -67,7 +67,7 @@ curl -X POST http://localhost:8080/api/users/login \
 
 # Extract token and use in requests
 TOKEN="eyJhbGciOiJIUzUxMiJ9..."
-curl http://localhost:8080/api/bookings/user/USER_ID \
+curl http://localhost:8180/api/bookings/user/USER_ID \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -75,7 +75,7 @@ curl http://localhost:8080/api/bookings/user/USER_ID \
 
 ```bash
 # Create vehicle
-curl -X POST http://localhost:8080/api/vehicles \
+curl -X POST http://localhost:8180/api/vehicles \
   -H "Content-Type: application/json" \
   -d '{
     "model": "Civic",
@@ -84,13 +84,13 @@ curl -X POST http://localhost:8080/api/vehicles \
   }'
 
 # Get all vehicles
-curl http://localhost:8080/api/vehicles
+curl http://localhost:8180/api/vehicles
 
 # Get specific vehicle
-curl http://localhost:8080/api/vehicles/{id}
+curl http://localhost:8180/api/vehicles/{id}
 
 # Update vehicle
-curl -X PUT http://localhost:8080/api/vehicles/{id} \
+curl -X PUT http://localhost:8180/api/vehicles/{id} \
   -H "Content-Type: application/json" \
   -d '{"pricePerDay": 55.0, "available": false}'
 ```
@@ -99,7 +99,7 @@ curl -X PUT http://localhost:8080/api/vehicles/{id} \
 
 ```bash
 # Create booking
-curl -X POST http://localhost:8080/api/bookings \
+curl -X POST http://localhost:8180/api/bookings \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{
@@ -110,15 +110,15 @@ curl -X POST http://localhost:8080/api/bookings \
   }'
 
 # Get user bookings
-curl http://localhost:8080/api/bookings/user/USER_ID \
+curl http://localhost:8180/api/bookings/user/USER_ID \
   -H "Authorization: Bearer $TOKEN"
 
 # Get specific booking
-curl http://localhost:8080/api/bookings/{id} \
+curl http://localhost:8180/api/bookings/{id} \
   -H "Authorization: Bearer $TOKEN"
 
 # Cancel booking
-curl -X PUT http://localhost:8080/api/bookings/{id}/cancel \
+curl -X PUT http://localhost:8180/api/bookings/{id}/cancel \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -126,11 +126,11 @@ curl -X PUT http://localhost:8080/api/bookings/{id}/cancel \
 
 ```bash
 # Get user notifications
-curl "http://localhost:8080/api/notifications/user/USER_ID?page=0&size=10" \
+curl "http://localhost:8180/api/notifications/user/USER_ID?page=0&size=10" \
   -H "Authorization: Bearer $TOKEN"
 
 # Mark notification as read
-curl -X PUT http://localhost:8080/api/notifications/{id}/read \
+curl -X PUT http://localhost:8180/api/notifications/{id}/read \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -266,11 +266,11 @@ gh run view <run-id> --log
 
 | Service | Port | Purpose |
 |---------|------|---------|
-| API Gateway | 8080 | Main entry point |
-| User Service | 8081 | User management |
-| Vehicle Service | 8082 | Vehicle data |
-| Booking Service | 8083 | Booking orchestration |
-| Notification Service | 8084 | Notifications |
+| API Gateway | 8180 | Main entry point |
+| User Service | 8181 | User management |
+| Vehicle Service | 8182 | Vehicle data |
+| Booking Service | 8183 | Booking orchestration |
+| Notification Service | 8184 | Notifications |
 | MongoDB (local) | 27017-27020 | Database |
 
 ## Environment Variables
@@ -280,10 +280,10 @@ gh run view <run-id> --log
 | MONGODB_URI | localhost:27017 | Database connection |
 | JWT_SECRET | dev-secret | JWT signing key |
 | JWT_EXPIRATION | 86400000 | Token lifetime (ms) |
-| USER_SERVICE_URL | http://localhost:8081 | User Service address |
-| VEHICLE_SERVICE_URL | http://localhost:8082 | Vehicle Service address |
-| BOOKING_SERVICE_URL | http://localhost:8083 | Booking Service address |
-| NOTIFICATION_SERVICE_URL | http://localhost:8084 | Notification Service address |
+| USER_SERVICE_URL | http://localhost:8181 | User Service address |
+| VEHICLE_SERVICE_URL | http://localhost:8182 | Vehicle Service address |
+| BOOKING_SERVICE_URL | http://localhost:8183 | Booking Service address |
+| NOTIFICATION_SERVICE_URL | http://localhost:8184 | Notification Service address |
 
 ## HTTP Status Codes
 
@@ -318,7 +318,7 @@ mongosh "connection-string"
 ### JWT Token Expired
 ```bash
 # Generate new token via login
-TOKEN=$(curl -s http://localhost:8080/api/users/login -d ... | jq -r '.token')
+TOKEN=$(curl -s http://localhost:8180/api/users/login -d ... | jq -r '.token')
 
 # Use token in requests
 curl -H "Authorization: Bearer $TOKEN" ...
@@ -327,7 +327,7 @@ curl -H "Authorization: Bearer $TOKEN" ...
 ### Service Not Found
 ```bash
 # Check service health
-curl http://localhost:8081/actuator/health
+curl http://localhost:8181/actuator/health
 
 # View logs
 docker-compose logs user-service
@@ -339,7 +339,7 @@ docker-compose restart user-service
 ### Port Already in Use
 ```bash
 # Kill process on port
-lsof -i :8080
+lsof -i :8180
 kill -9 <PID>
 
 # Or use different port

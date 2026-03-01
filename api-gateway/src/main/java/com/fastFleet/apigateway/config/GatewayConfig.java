@@ -14,16 +14,16 @@ public class GatewayConfig {
 
         private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-        @Value("${USER_SERVICE_URL:http://localhost:8081}")
+        @Value("${USER_SERVICE_URL:http://localhost:8181}")
         private String userServiceUrl;
 
-        @Value("${VEHICLE_SERVICE_URL:http://localhost:8082}")
+        @Value("${VEHICLE_SERVICE_URL:http://localhost:8182}")
         private String vehicleServiceUrl;
 
-        @Value("${BOOKING_SERVICE_URL:http://localhost:8083}")
+        @Value("${BOOKING_SERVICE_URL:http://localhost:8183}")
         private String bookingServiceUrl;
 
-        @Value("${NOTIFICATION_SERVICE_URL:http://localhost:8084}")
+        @Value("${NOTIFICATION_SERVICE_URL:http://localhost:8184}")
         private String notificationServiceUrl;
 
         @Bean
