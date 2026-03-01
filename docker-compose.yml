@@ -113,6 +113,16 @@ services:
       retries: 3
       start_period: 40s
 
+  frontend:
+    image: hiranx/vehicle-frontend:latest
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - api-gateway
+    networks:
+      - vehicle-rental-network
+
 networks:
   vehicle-rental-network:
     driver: bridge
