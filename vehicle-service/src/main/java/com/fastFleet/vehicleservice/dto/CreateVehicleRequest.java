@@ -18,4 +18,6 @@ public class CreateVehicleRequest {
 
     @Positive(message = "Price per day must be positive")
     private double pricePerDay;
+
+    //aaaaaaaa
 }
