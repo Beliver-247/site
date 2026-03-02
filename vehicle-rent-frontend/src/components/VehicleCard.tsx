@@ -35,7 +35,7 @@ export default function VehicleCard({ vehicle }: Props) {
                 </div>
 
                 <Link
-                    to={`/${vehicle.id}`}
+                    to={`/vehicles/${vehicle.id}`}
                     className="mt-4 block rounded-lg bg-indigo-600 px-4 py-2.5 text-center text-sm font-medium text-white transition hover:bg-indigo-500"
                 >
                     View Details
