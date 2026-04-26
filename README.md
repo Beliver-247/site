@@ -19,9 +19,9 @@ A production-ready, cloud-native microservice-based vehicle rental platform buil
         ┌──────────────┬───────┼────────┬──────────────┐
         ▼              ▼       ▼        ▼              ▼
    ┌─────────┐  ┌──────────┐ ┌──────┐ ┌──────────┐ ┌────────────┐
-   │  User   │  │ Vehicle  │ │Book. │ │Notif.   │ │ Databases  │
-   │Service  │  │ Service  │ │Service│ │ Service │ │  (MongoDB) │
-   │(8181)   │  │  (8182)  │ │(8183)│ │ (8184)  │ │            │
+   │  User   │  │ Vehicle  │ │Book. │ │Notif.    │ │ Databases  │
+   │Service  │  │ Service  ││Service ││ Service  │ │  (MongoDB) │
+   │(8181)   │  │  (8182)  │ │(8183)│ │ (8184)   │ │            │
    └─────────┘  └──────────┘ └──────┘ └──────────┘ └────────────┘
 ```
 
